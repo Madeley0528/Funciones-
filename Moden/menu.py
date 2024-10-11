@@ -1,4 +1,4 @@
 # Cuando creamos un menu
-def agregar_tarea():
+def agregar_producto():
     print("Estamos programando productos de menu.")
 
