@@ -1,7 +1,8 @@
 inventario = [
-    {"nombre": "Manzanas", "cantidad": 50, "precio": 2.50},
-    {"nombre": "Bananas", "cantidad": 30, "precio": 1.75},
-    {"nombre": "Leche", "cantidad": 20, "precio": 5.00},
-    {"nombre": "Pan", "cantidad": 40, "precio": 3.00},
-    {"nombre": "Huevos", "cantidad": 60, "precio": 0.50}
+    {"nombre": "Té", "cantidad": 40, "precio": 8.00},
+    {"nombre": "Galletas", "cantidad": 100, "precio": 2.50},
+    {"nombre": "Pasta", "cantidad": 60, "precio": 3.75},
+    {"nombre": "Aceite", "cantidad": 25, "precio": 15.00},
+    {"nombre": "Salsa de tomate", "cantidad": 30, "precio": 4.00}
 ]
+
