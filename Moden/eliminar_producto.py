@@ -1,9 +1,10 @@
+from ..Servicios.inventario import productos
 
-# Como se elimina un producto 
-def eliminar_producto(nombre):
-    for producto in inventario:
-        if producto["nombre"] == nombre:
-            inventario.remove(producto)
-            print(f"Producto {nombre} eliminado exitosamente.")
+def eliminar_producto():
+    nombre = input("Nombre del producto a eliminar: ")
+    for producto in productos:
+        if producto['nombre'] == nombre:
+            productos.remove(producto)
+            print("Producto eliminado.")
             return
-    print("Producto no encontrado.")
+    print("Producto que se ha  encontrado.")
