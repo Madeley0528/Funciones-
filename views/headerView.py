@@ -8,7 +8,7 @@ def header_view(ventana):
 
     # Logo ajustado a un tamaño intermedio
     logo = tkinter.PhotoImage(file="logo.png")
-    logo = logo.subsample(2, 2)  
+    logo = logo.subsample(6, 6)  
     logo_label = tkinter.Label(header_panel, image=logo, bg="white")
     logo_label.image = logo
     logo_label.pack(side="right", padx=5, pady=1) 
