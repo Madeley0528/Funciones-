@@ -11,7 +11,6 @@ def conectar(consulta_sql):
         'raise_on_warnings': True
     }
 
-
 # Conectar a la base de datos 
     try: 
        conexion = mysql.connector.connect(**config)
