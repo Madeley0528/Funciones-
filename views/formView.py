@@ -1,12 +1,12 @@
 import tkinter
-from tkinter import messagebox  
 from views.datosView import actualizarTabla
+import tkinter.messagebox as messagebox
 
 def form_view(ventana):
-    formulario_panel = tkinter.Frame(ventana, bg="pink", width="300", height="600") 
+    formulario_panel = tkinter.Frame(ventana, bg="yellow", width="300", height="600") 
     formulario_panel.grid(row=1, column=0, sticky="nsew")
 
-    tabla_panel = tkinter.Frame(ventana, bg="white", width="50", height="60") 
+    tabla_panel = tkinter.Frame(ventana, bg="white", width="10", height="10")
     tabla_panel.grid(row=1, column=1, sticky="nsew")
 
     titulo = tkinter.Label(formulario_panel, text="Formulario de registro")
@@ -22,7 +22,7 @@ def form_view(ventana):
     boton = tkinter.Button(formulario_panel, text="Enviar", command=funcion_boton)
     boton.pack(pady=5)
 
-    #HORA
+    # HORA
     titulo = tkinter.Label(formulario_panel, text="Filtrar por hora")
     titulo.pack(pady=5)
 
@@ -37,7 +37,7 @@ def form_view(ventana):
         h2 = entry_hora2.get().strip()
 
         if not h1.isdigit() or not h2.isdigit():
-            messagebox.showerror("Error", "Las horas deben ser valores numéricos.")
+            messagebox.showerror("Error ingresa hora valida")
             return
 
         h1 = int(h1)
@@ -56,10 +56,8 @@ def form_view(ventana):
     boton_hora = tkinter.Button(formulario_panel, text="Enviar", command=filtrar_por_hora)
     boton_hora.pack(pady=5)
 
-    actualizarTabla(f"SELECT * FROM datos_generales", tabla_panel)
-
-     # Filtro de tarifa (mayor a el valor)
-    titulo_tarifa = tkinter.Label(formulario_panel, text="Filtrar por Tarifa > valor")
+    # FILTRO DE TARIFA DINÁMICO (mayor o menor a un valor)
+    titulo_tarifa = tkinter.Label(formulario_panel, text="Filtrar por tarifa")
     titulo_tarifa.pack(pady=5)
 
     entry_tarifa = tkinter.Entry(formulario_panel)
@@ -73,29 +71,43 @@ def form_view(ventana):
         consulta = f"SELECT * FROM datos_generales WHERE tarifa > {valor}"
         actualizarTabla(consulta, tabla_panel)
 
-    boton_tarifa_mayor = tkinter.Button(formulario_panel, text="Enviar", command=filtrar_tarifa_mayor)
-    boton_tarifa_mayor.pack(pady=5)
-
-        # Filtrar nombres que empiezen con una letra
-    titulo_letra = tkinter.Label(formulario_panel, text="nombres que empiezan con letra...")
-    titulo_letra.pack(pady=5)
-
-    entry_letra = tkinter.Entry(formulario_panel)
-    entry_letra.pack(pady=5)
-
-    def filtrar_por_letra():
-        letra = entry_letra.get().strip()
-
-        if not letra.isalpha() or len(letra) != 1:
-            messagebox.showerror("Error", "Debes escribir solo una letra.")
+    def filtrar_tarifa_menor():
+        valor = entry_tarifa.get()
+        if not valor.replace(".", "", 1).isdigit():
             return
-
-        letra_mayus = letra.upper()
-        consulta = f"SELECT * FROM datos_generales WHERE nombre LIKE '{letra_mayus}%'"
+        consulta = f"SELECT * FROM datos_generales WHERE tarifa < {valor}"
         actualizarTabla(consulta, tabla_panel)
 
-    boton_letra = tkinter.Button(formulario_panel, text="Enviar", command=filtrar_por_letra)
-    boton_letra.pack(pady=5)
+    boton_tarifa_mayor = tkinter.Button(formulario_panel, text="Tarifa > valor", command=filtrar_tarifa_mayor)
+    boton_tarifa_mayor.pack(pady=5)
+
+    boton_tarifa_menor = tkinter.Button(formulario_panel, text="Tarifa < valor", command=filtrar_tarifa_menor)
+    boton_tarifa_menor.pack(pady=5)
+
+    # Filtro de género (Masculino/Femenino)
+    titulo_genero = tkinter.Label(formulario_panel, text="Filtrar por género (Masculino/Femenino)")
+    titulo_genero.pack(pady=5)
+
+    entry_genero = tkinter.Entry(formulario_panel)
+    entry_genero.pack(pady=5)
+
+    def filtrar_por_genero():
+        genero = entry_genero.get().strip().lower()
+
+        if genero not in ["masculino", "femenino"]:
+            messagebox.showerror("Error", "Por favor ingrese 'Masculino' o 'Femenino'.")
+            return
+
+        # Mostrar los registros que coincidan con 'Masculino' o 'Femenino'
+        consulta = f"SELECT * FROM datos_generales WHERE genero = '{genero.capitalize()}'"
+        print("Consulta SQL:", consulta)  # Esto imprime la consulta para que puedas verificarla
+        actualizarTabla(consulta, tabla_panel)
+
+    boton_genero = tkinter.Button(formulario_panel, text="Filtrar por género", command=filtrar_por_genero)
+    boton_genero.pack(pady=5)
+
+    # Cargar los datos iniciales
+    actualizarTabla(f"SELECT * FROM datos_generales", tabla_panel)
 
     return formulario_panel
 
