@@ -1,0 +1,121 @@
+Pasos para crear un sitio web con Python y Flask
+1. Instala Python en tu computadora
+Descarga Python desde su sitio oficial: https://www.python.org.
+Una vez instalado, abre la terminal o símbolo del sistema y verifica que esté funcionando correctamente con el siguiente comando:
+
+bash
+Copiar
+Editar
+python --version
+
+2. Crea una carpeta para tu proyecto web
+Puedes crearla en cualquier ubicación de tu computadora. Por ejemplo:
+mi_sitio_flask
+Esta carpeta contendrá todos los archivos necesarios del sitio web.
+
+3. Crea un entorno virtual dentro de la carpeta del proyecto
+Este entorno sirve para manejar de forma aislada las librerías de Python.
+Abre la terminal, ubícate dentro de la carpeta y escribe:
+
+bash
+Copiar
+Editar
+python -m venv venv
+
+4. Activa el entorno virtual
+En Windows:
+
+bash
+Copiar
+Editar
+venv\Scripts\activate
+En Mac o Linux:
+
+bash
+Copiar
+Editar
+source venv/bin/activate
+Cuando el entorno esté activo, notarás que aparece (venv) al inicio de la línea de comandos.
+
+
+5. Instala Flask usando pip
+Con el entorno virtual activo, instala Flask ejecutando:
+
+bash
+Copiar
+Editar
+pip install flask
+
+6. Crea el archivo principal de la aplicación en Python
+Dentro de tu carpeta de proyecto, crea un archivo llamado app.py y escribe este contenido básico:
+
+python
+Copiar
+Editar
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def inicio():
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+Este código crea la ruta principal de tu sitio web (la página de inicio).
+
+7. Crea una carpeta llamada templates y un archivo HTML
+Flask busca las páginas web (HTML) en una carpeta llamada templates.
+Crea la carpeta templates y dentro de ella, un archivo llamado index.html con el siguiente contenido:
+
+html
+Copiar
+Editar
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Sitio Flask</title>
+</head>
+<body>
+    <h1>¡Bienvenido a mi sitio web creado con Flask!</h1>
+</body>
+</html>
+8. (Opcional) Crea una carpeta llamada static para archivos como CSS o imágenes
+Si deseas agregar estilos, crea una carpeta llamada static y dentro un archivo llamado style.css.
+Luego, enlaza ese CSS desde tu HTML usando:
+
+html
+Copiar
+Editar
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+9. Ejecuta el archivo app.py para iniciar el servidor web
+Vuelve a la terminal, asegúrate de estar en la carpeta del proyecto, y ejecuta:
+
+bash
+Copiar
+Editar
+python app.py
+Esto iniciará el servidor local. Flask te indicará en qué dirección ver el sitio web.
+
+10. Abre tu navegador y visita http://localhost:5000
+Ahí podrás ver tu sitio web funcionando gracias a Python y Flask.
+
+11. Agrega más rutas a tu sitio web (opcional)
+Si deseas tener más páginas, puedes agregar nuevas rutas en app.py. Por ejemplo:
+
+python
+Copiar
+Editar
+@app.route("/contacto")
+def contacto():
+    return "<h2>Esta es la página de contacto</h2>"
+
+12. (Opcional) Publica tu sitio en Internet
+Cuando tu sitio esté listo, puedes subirlo a servicios gratuitos como:
+
+Render
+PythonAnywhere
+Heroku
+Ellos permiten alojar proyectos Flask hechos con Python de manera sencilla.
